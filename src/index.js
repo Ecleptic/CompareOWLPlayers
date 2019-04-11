@@ -39,17 +39,24 @@ function App() {
 				<div className="App">
 					<h1>Hello CodeSandbox</h1>
 
-					<div>
+					<div id="player1_data" className="data">
 						<h3>Muma:</h3>
 						<ul>
-							{!loadingMuma &&
+							{/* {!loadingMuma &&
 								Object.entries(muma.data.stats.all).map(([key, item]) => {
 									return (
 										<li key={key}>
 											{key}:{item}
 										</li>
 									)
-								})}
+								})} */}
+							<li>Deaths: {!loadingMuma && muma.data.stats.all.deaths_avg_per_10m}</li>
+							<li>Deaths: {!loadingMuma && muma.data.stats.all.eliminations_avg_per_10m}</li>
+							<li>Deaths: {!loadingMuma && muma.data.stats.all.final_blows_avg_per_10m}</li>
+							<li>Deaths: {!loadingMuma && muma.data.stats.all.healing_avg_per_10m}</li>
+							<li>Deaths: {!loadingMuma && muma.data.stats.all.hero_damage_avg_per_10m}</li>
+							<li>Deaths: {!loadingMuma && muma.data.stats.all.time_played_total}</li>
+							<li>Deaths: {!loadingMuma && muma.data.stats.all.ultimates_earned_avg_per_10m}</li>
 						</ul>
 					</div>
 				</div>
