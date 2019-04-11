@@ -1,2 +1,0 @@
-# CompareOWLPlayers
-Created with CodeSandbox
