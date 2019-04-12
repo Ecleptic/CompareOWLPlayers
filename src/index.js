@@ -1,48 +1,49 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
-import { useState, useEffect } from 'react'
+import React from "react";
+import ReactDOM from "react-dom";
+import { useState, useEffect } from "react";
 
-import './styles.scss'
+import "./styles.scss";
 
 function App() {
-	const [player, loading] = useFetch(
-		// 'https://jsonplaceholder.typicode.com/photos?albumId=1'
-		'https://api.overwatchleague.com/stats/players?season=2019&stage_id=regular_season&expand=stats,stat.ranks'
-		// 'https://api.overwatchleague.com/players/8896?locale=en-us&season=2019&stage_id=regular_season&expand=stats,stat.ranks'
-	)
-	const [muma, loadingMuma] = useFetch(
-		'https://api.overwatchleague.com/players/4623?locale=en-us&season=2019&stage_id=regular_season&expand=stats,stat.ranks'
-	)
+  const [player, loading] = useFetch(
+    // 'https://jsonplaceholder.typicode.com/photos?albumId=1'
+    "https://api.overwatchleague.com/stats/players?season=2019&stage_id=regular_season&expand=stats,stat.ranks"
+    // 'https://api.overwatchleague.com/players/8896?locale=en-us&season=2019&stage_id=regular_season&expand=stats,stat.ranks'
+  );
+  const [muma, loadingMuma] = useFetch(
+    "https://api.overwatchleague.com/players/4623?locale=en-us&season=2019&stage_id=regular_season&expand=stats,stat.ranks"
+  );
 
-	// console.log(muma)
-	// const muma =
-	// 	player &&
-	// 	player.data &&
-	// 	player.data.find(p => {
-	// 		// console.log(p.name)
-	// 		return p.name.toUpperCase() === 'MUMA'
-	// 	})
-	const oge =
-		player &&
-		player.data &&
-		player.data.find(p => {
-			// console.log(p.name)
-			return p.name.toUpperCase() === 'OGE'
-		})
-	return (
-		<>
-			{loading ? (
-				<div className="App">
-					<h1>Loading...</h1>
-				</div>
-			) : (
-				<div className="App">
-					<h1>Hello CodeSandbox</h1>
+  // console.log(muma)
+  // const muma =
+  // 	player &&
+  // 	player.data &&
+  // 	player.data.find(p => {
+  // 		// console.log(p.name)
+  // 		return p.name.toUpperCase() === 'MUMA'
+  // 	})
+  const oge =
+    player &&
+    player.data &&
+    player.data.find(p => {
+      // console.log(p.name)
+      return p.name.toUpperCase() === "OGE";
+    });
+  return (
+    <>
+      {loading ? (
+        <div className="App">
+          <h1>Loading...</h1>
+        </div>
+      ) : (
+        <div className="App">
+          <h1>Hello CodeSandbox</h1>
 
-					<div id="player1_data" className="data">
-						<h3>Muma:</h3>
-						<ul>
-							{/* {!loadingMuma &&
+          <div id="player1_data" className="data">
+            <h3>Muma:</h3>
+            {!loadingMuma && (
+              <ul>
+                {/* {!loadingMuma &&
 								Object.entries(muma.data.stats.all).map(([key, item]) => {
 									return (
 										<li key={key}>
@@ -50,37 +51,117 @@ function App() {
 										</li>
 									)
 								})} */}
-							<li>Deaths: {!loadingMuma && muma.data.stats.all.deaths_avg_per_10m}</li>
-							<li>Deaths: {!loadingMuma && muma.data.stats.all.eliminations_avg_per_10m}</li>
-							<li>Deaths: {!loadingMuma && muma.data.stats.all.final_blows_avg_per_10m}</li>
-							<li>Deaths: {!loadingMuma && muma.data.stats.all.healing_avg_per_10m}</li>
-							<li>Deaths: {!loadingMuma && muma.data.stats.all.hero_damage_avg_per_10m}</li>
-							<li>Deaths: {!loadingMuma && muma.data.stats.all.time_played_total}</li>
-							<li>Deaths: {!loadingMuma && muma.data.stats.all.ultimates_earned_avg_per_10m}</li>
-						</ul>
-					</div>
-				</div>
-			)}
-		</>
-	)
+                <li>
+                  <h3>Stats All</h3>
+                </li>
+                <li>Deaths: {muma.data.stats.all.deaths_avg_per_10m}</li>
+                <li>
+                  eliminations_avg_per_10m:
+                  {muma.data.stats.all.eliminations_avg_per_10m}
+                </li>
+                <li>
+                  final_blows_avg_per_10m:
+                  {muma.data.stats.all.final_blows_avg_per_10m}
+                </li>
+                <li>
+                  healing_avg_per_10m: {muma.data.stats.all.healing_avg_per_10m}
+                </li>
+                <li>
+                  hero_damage_avg_per_10m:
+                  {muma.data.stats.all.hero_damage_avg_per_10m}
+                </li>
+                <li>
+                  time_played_total: {muma.data.stats.all.time_played_total}
+                </li>
+                <li>
+                  ultimates_earned_avg_per_10m:
+                  {muma.data.stats.all.ultimates_earned_avg_per_10m}
+                </li>
+
+                <li>
+                  <h3>Stats on {muma.data.stats.heroes[0].stats.name}</h3>
+                </li>
+
+                <li>
+                  Deaths: {muma.data.stats.heroes[0].stats.deaths_avg_per_10m}
+                </li>
+                <li>
+                  eliminations_avg_per_10m:
+                  {muma.data.stats.heroes[0].stats.eliminations_avg_per_10m}
+                </li>
+                <li>
+                  final_blows_avg_per_10m:
+                  {muma.data.stats.heroes[0].stats.final_blows_avg_per_10m}
+                </li>
+                <li>
+                  healing_avg_per_10m:
+                  {muma.data.stats.heroes[0].stats.healing_avg_per_10m}
+                </li>
+                <li>
+                  hero_damage_avg_per_10m:
+                  {muma.data.stats.heroes[0].stats.hero_damage_avg_per_10m}
+                </li>
+                <li>
+                  time_played_total:
+                  {muma.data.stats.heroes[0].stats.time_played_total}
+                </li>
+                <li>
+                  ultimates_earned_avg_per_10m:
+                  {muma.data.stats.heroes[0].stats.ultimates_earned_avg_per_10m}
+                </li>
+                <li>
+                  <h3>Rank</h3>
+                </li>
+                <li>
+                  eliminations_avg_per_10m:
+                  {muma.data.statRanks.eliminations_avg_per_10m}
+                </li>
+                <li>
+                  deaths_avg_per_10m: {muma.data.statRanks.deaths_avg_per_10m}
+                </li>
+                <li>
+                  hero_damage_avg_per_10m:
+                  {muma.data.statRanks.hero_damage_avg_per_10m}
+                </li>
+                <li>
+                  healing_avg_per_10m: {muma.data.statRanks.healing_avg_per_10m}
+                </li>
+                <li>
+                  ultimates_earned_avg_per_10m:
+                  {muma.data.statRanks.ultimates_earned_avg_per_10m}
+                </li>
+                <li>
+                  final_blows_avg_per_10m:
+                  {muma.data.statRanks.final_blows_avg_per_10m}
+                </li>
+                <li>
+                  time_played_total: {muma.data.statRanks.time_played_total}
+                </li>
+              </ul>
+            )}
+          </div>
+        </div>
+      )}
+    </>
+  );
 }
 
-const rootElement = document.getElementById('root')
-ReactDOM.render(<App />, rootElement)
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
 
 function useFetch(url) {
-	const [data, setData] = useState([])
-	const [loading, setLoading] = useState(true)
-	async function fetchUrl() {
-		const response = await fetch(url)
-		const json = await response.json()
-		console.log(json)
-		setData(json)
-		setLoading(false)
-	}
-	useEffect(() => {
-		fetchUrl()
-	}, [])
-	return [data, loading]
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  async function fetchUrl() {
+    const response = await fetch(url);
+    const json = await response.json();
+    console.log(json);
+    setData(json);
+    setLoading(false);
+  }
+  useEffect(() => {
+    fetchUrl();
+  }, []);
+  return [data, loading];
 }
-export { useFetch }
+export { useFetch };
