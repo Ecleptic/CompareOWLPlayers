@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ReactDOM from 'react-dom'
 
 export function PlayerView({ player: { data: player } }) {
+  console.log({ player })
   return (
     <>
       <h3>{player.player.name.toUpperCase()} :</h3>

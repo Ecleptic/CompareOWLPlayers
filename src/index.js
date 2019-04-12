@@ -7,6 +7,7 @@ import { useFetch } from './useFetch'
 import { Selector } from './Selector'
 
 function App() {
+  // TODO: Custom hooks to save state after fetching a more unique url
   const [player1, setPlayer1] = useState()
   const [player2, setPlayer2] = useState()
   const [players, loading] = useFetch(
@@ -42,7 +43,9 @@ function App() {
       ) : (
         <div className="App">
           <h1>Hello CodeSandbox</h1>
-          {players && <Selector items={players} />}
+          {players && <Selector items={players} setPlayer={setPlayer1} />}
+          {player1 ||
+            (console.log({ player1 }) && <PlayerView player={player1} />)}
           {/* <div id="player1_data" className="data">
             {!loadingMuma && <PlayerView player={muma} />}
           </div> */}

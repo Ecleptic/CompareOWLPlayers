@@ -4,11 +4,14 @@ import Downshift from 'downshift'
 
 export const Selector = props => {
   const items = props.items.data
+  const setPlayer = props.setPlayer
   console.log(items)
 
   return (
     <Downshift
-      onChange={selection => alert(`You selected ${selection.name}`)}
+      onChange={selection =>
+        console.log('setting player to', selection) || setPlayer(selection)
+      }
       itemToString={item => (item ? item.name : '')}>
       {({
         getInputProps,
