@@ -18,6 +18,7 @@ import './styles.scss'
 function App() {
   const [name, setName] = useTitleInput('')
   const [player1, setPlayer1] = useState()
+  const [player2, setPlayer2] = useState()
 
   // TODO: Custom hooks to save state after fetching a more unique url
 
@@ -25,7 +26,7 @@ function App() {
     'https://api.overwatchleague.com/stats/players?season=2019&stage_id=regular_season&expand=stats,stat.ranks'
   )
 
-  const setPlayerDetails = async playerInfo => {
+  const setPlayer1Details = async playerInfo => {
     console.log({ playerInfo })
     const response = await fetch(
       `https://api.overwatchleague.com/players/${
@@ -38,6 +39,18 @@ function App() {
     setPlayer1(json)
   }
 
+  const setPlayer2Details = async playerInfo => {
+    console.log({ playerInfo })
+    const response = await fetch(
+      `https://api.overwatchleague.com/players/${
+        playerInfo.playerId
+      }?locale=en-us&season=2019&stage_id=regular_season&expand=stats,stat.ranks`
+    )
+    const json = await response.json()
+    console.log(json)
+    setName(json.data.player.name)
+    setPlayer2(json)
+  }
   return (
     <>
       <label>Title: </label>
@@ -51,23 +64,35 @@ function App() {
           <h1>Hello</h1>
           <ComparePlayers
             playersList={playersList}
-            setPlayerDetails={setPlayerDetails}
+            setPlayer1Details={setPlayer1Details}
+            setPlayer2Details={setPlayer2Details}
             player1={player1}
+            player2={player2}
           />
         </div>
       )}
     </>
   )
 }
-const ComparePlayers = ({ playersList, setPlayerDetails, player1 }) => {
+const ComparePlayers = ({
+  playersList,
+  setPlayer1Details,
+  setPlayer2Details,
+  player1,
+  player2,
+}) => {
   console.log({ playersList })
   return (
     <>
       {playersList && (
-        <Selector items={playersList} setPlayer={setPlayerDetails} />
+        <Selector items={playersList} setPlayer={setPlayer1Details} />
       )}
-      {console.log({ player1 })}
       {player1 && <PlayerView player={player1} />}
+
+      {playersList && (
+        <Selector items={playersList} setPlayer={setPlayer2Details} />
+      )}
+      {player2 && <PlayerView player={player2} />}
     </>
   )
 }
