@@ -15,13 +15,13 @@ import React from 'react'
 export function Selector(props) {
   const items = props.items.data
   const setPlayer = props.setPlayer
-  console.log({ items })
+  //   console.log({ items })
 
   // setPlayer(useGetPlayerDetails(selection)
 
   return (
     <Downshift
-      onChange={selection => console.log('setting player to', selection)}
+      onChange={selection => setPlayer(selection)}
       itemToString={item => (item ? item.name : '')}>
       {({
         getInputProps,
