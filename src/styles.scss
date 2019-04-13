@@ -1,0 +1,90 @@
+@font-face {
+  font-family: Noto Sans;
+  src: url(https://styleguide.overwatchleague.com/6.7.0/assets/themes/owl/fonts/notosans-regular-webfont.woff2);
+}
+
+body{
+    font-family: "Industry",Noto Sans,Helvetica Neue,Helvetica,Arial,sans-serif;    box-sizing: border-box;
+    background-image: url(https://styleguide.overwatchleague.com/6.7.0/assets/themes/owl/images/background/OWL-LBG-2.jpg);
+    background-image: url(https://styleguide.overwatchleague.com/6.7.0/assets/themes/owl/images/background/OWL-DBG-2.jpg);
+    background-color: #f1f1f1;
+    background-repeat: no-repeat;
+    background-position: 50% 0;
+}
+.comparePlayers{
+    background: linear-gradient( rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2) ), url(https://styleguide.overwatchleague.com/6.7.0/assets/themes/owl/images/background/OWL-LBG-2.jpg);
+    margin: 2rem;
+    padding: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 50px 1fr 3fr 
+}
+.playerStatsCard{
+    display: flex;
+    flex-direction: row;
+    background-color: white;    
+    align-items: center;
+
+    &:nth-child(even){
+        background-color:lightgrey;
+        flex-direction: row-reverse;
+        .nameInfo{
+            text-align:right;    
+        }
+    }
+    img{
+        max-height: 100%;
+        height: 5rem;
+        padding: 1rem;
+    }
+    .nameInfo{
+       
+        display: flex;
+        flex-direction: column;
+    }
+}
+.heroTable {
+    grid-column-start: 1;
+    grid-column-end: -1;
+    display: flex;
+    justify-content: center;
+    table{
+        // border: 1px solid #CCC;
+        border-collapse: collapse;
+        width:100%;
+        thead{
+            th{
+                font-size: 1.5rem;
+            }
+        }
+        tbody{
+            tr{
+                background-color:white;
+                &:nth-child(even){ // create our own padding
+                    height:10px;
+                    background:none;
+                }
+            }
+            td{
+                padding: 10px;
+                border:none;
+                &:nth-child(1){
+                        // do something
+                    }
+                &:nth-child(3){
+                    text-align: right;
+                }
+            }
+        }
+    }
+}
+.heroTable_body-stats{
+   
+}
+.selectorList{
+    background-color: white;
+    z-index: 2;
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}

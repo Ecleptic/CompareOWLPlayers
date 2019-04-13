@@ -1,7 +1,7 @@
 {
-  "name": "compareowlplayers",
+  "name": "compareplayers",
   "version": "1.0.0",
-  "description": "",
+  "description": "Small App to compare OWL players",
   "keywords": [],
   "main": "src/index.js",
   "dependencies": {

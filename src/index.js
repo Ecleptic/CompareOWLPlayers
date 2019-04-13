@@ -12,15 +12,14 @@ import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
 import { useFetch, useTitleInput, useGetPlayerDetails } from './customHooks'
 import { Selector } from './Selector'
-import { PlayerView } from './playerView'
 import './styles.scss'
 
 function App() {
-  const [name, setName] = useTitleInput('')
   const [player1, setPlayer1] = useState()
   const [player2, setPlayer2] = useState()
-
-  // TODO: Custom hooks to save state after fetching a more unique url
+  const [title, setTitle] = useTitleInput(
+    `${player1 ? player1 : 'Player'} vs ${player2 ? player2 : 'Player'}`
+  )
 
   const [playersList, loading] = useFetch(
     'https://api.overwatchleague.com/stats/players?season=2019&stage_id=regular_season&expand=stats,stat.ranks'
@@ -35,8 +34,8 @@ function App() {
     )
     const json = await response.json()
     console.log(json)
-    setName(json.data.player.name)
     setPlayer1(json)
+    setTitle()
   }
 
   const setPlayer2Details = async playerInfo => {
@@ -48,20 +47,18 @@ function App() {
     )
     const json = await response.json()
     console.log(json)
-    setName(json.data.player.name)
     setPlayer2(json)
+    setTitle()
   }
+
   return (
     <>
-      <label>Title: </label>
-      <input type="text" onChange={e => setName(e.target.value)} value={name} />
       {loading ? (
         <div className="App">
           <h1>Loading...</h1>
         </div>
       ) : (
         <div className="App">
-          <h1>Hello</h1>
           <ComparePlayers
             playersList={playersList}
             setPlayer1Details={setPlayer1Details}
@@ -74,6 +71,26 @@ function App() {
     </>
   )
 }
+
+const PlayerComparison = ({ player1, player2 }) => {
+  /**
+   *
+   * Structured Table
+   *
+   * 1. Player Icon/name/number
+   * 2. Stat as {hero} on {map} (simplify to hero?) [Maybe 'Stat as {hero} in Season 2?]
+   * 3. Stats in bold letters
+   *
+   */
+
+  return (
+    <>
+      <PlayerStatsCard player={player1} />
+      <PlayerStatsCard player={player2} />
+      <HeroTable player1={player1} player2={player2} />
+    </>
+  )
+}
 const ComparePlayers = ({
   playersList,
   setPlayer1Details,
@@ -83,17 +100,150 @@ const ComparePlayers = ({
 }) => {
   console.log({ playersList })
   return (
-    <>
-      {playersList && (
-        <Selector items={playersList} setPlayer={setPlayer1Details} />
+    <div className="comparePlayers">
+      <div className="p1Info">
+        {playersList && (
+          <Selector
+            className="selector"
+            items={playersList}
+            setPlayer={setPlayer1Details}
+          />
+        )}
+      </div>
+      <div className="p2Info">
+        {playersList && (
+          <Selector
+            className="selector"
+            items={playersList}
+            setPlayer={setPlayer2Details}
+          />
+        )}
+      </div>
+      {player1 && player2 && (
+        <PlayerComparison player1={player1} player2={player2} />
       )}
-      {player1 && <PlayerView player={player1} />}
+    </div>
+  )
+}
 
-      {playersList && (
-        <Selector items={playersList} setPlayer={setPlayer2Details} />
-      )}
-      {player2 && <PlayerView player={player2} />}
-    </>
+const HeroTable = ({ player1, player2 }) => {
+  console.log({ player1, player2 })
+  return (
+    <div className="heroTable">
+      <table>
+        <thead>
+          <tr colSpan="3" align="center">
+            <th colSpan="3" align="center">
+              Stats per 10 min. Stage 2
+            </th>
+          </tr>
+        </thead>
+        <tbody className="heroTable_body">
+          <tr>
+            <td className="heroTable_body-stats">
+              {Math.round(player1.data.stats.all.deaths_avg_per_10m)}
+            </td>
+            <th>Deaths</th>
+            <td className="heroTable_body-stats">
+              {Math.round(player2.data.stats.all.deaths_avg_per_10m)}
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td className="heroTable_body-stats">
+              {Math.round(player1.data.stats.all.eliminations_avg_per_10m)}
+            </td>
+            <th>Eliminations</th>
+            <td className="heroTable_body-stats">
+              {Math.round(player2.data.stats.all.eliminations_avg_per_10m)}
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td className="heroTable_body-stats">
+              {Math.round(player1.data.stats.all.final_blows_avg_per_10m)}
+            </td>
+            <th>Final Blows</th>
+            <td className="heroTable_body-stats">
+              {Math.round(player2.data.stats.all.final_blows_avg_per_10m)}
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td className="heroTable_body-stats">
+              {Math.round(player1.data.stats.all.healing_avg_per_10m)}
+            </td>
+            <th>Healing</th>
+            <td className="heroTable_body-stats">
+              {Math.round(player2.data.stats.all.healing_avg_per_10m)}
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td className="heroTable_body-stats">
+              {Math.round(player1.data.stats.all.hero_damage_avg_per_10m)}
+            </td>
+            <th>Damage</th>
+            <td className="heroTable_body-stats">
+              {Math.round(player2.data.stats.all.hero_damage_avg_per_10m)}
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td className="heroTable_body-stats">
+              {Math.round(player1.data.stats.all.time_played_total)}
+            </td>
+            <th>Time Played</th>
+            <td className="heroTable_body-stats">
+              {Math.round(player2.data.stats.all.time_played_total)}
+            </td>
+          </tr>
+          <tr />
+          <tr>
+            <td className="heroTable_body-stats">
+              {Math.round(player2.data.stats.all.ultimates_earned_avg_per_10m)}
+            </td>
+            <th>Ultimates</th>
+            <td className="heroTable_body-stats">
+              {Math.round(player1.data.stats.all.ultimates_earned_avg_per_10m)}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      {/* <ul className="heroTable">
+        <li>
+          <ul>
+            <li className="heroTable_statsItem">
+              {Math.round(player1.data.stats.all.deaths_avg_per_10m)}
+            </li>
+            <li className="heroTable_statsHead">Deaths</li>
+            <li className="heroTable_statsItem">
+              {Math.round(player2.data.stats.all.deaths_avg_per_10m)}
+            </li>
+          </ul>
+        </li>
+      </ul> */}
+    </div>
+  )
+}
+
+const PlayerStatsCard = ({ player }) => {
+  return (
+    <div className="playerStatsCard">
+      <img
+        src={player.data.player.headshot}
+        alt={`${player.data.player.name}'s Headshot`}
+      />
+      <div className="nameInfo">
+        <span className="realName">{player.data.player.givenName}</span>
+        <span className="realName">{player.data.player.familyName}</span>
+        <span className="playerName">{player.data.player.name}</span>
+        <span className="player">
+          {player.data.player.attributes.player_number}
+          {player.data.player.attributes.role}
+        </span>
+      </div>
+    </div>
   )
 }
 
