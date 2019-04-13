@@ -47,10 +47,10 @@ body{
     }
 }
 .playerInfo{
-  display: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
-
+    text-align: center;
 }
 .heroTable {
     grid-column-start: 1;
@@ -102,12 +102,16 @@ body{
 }
 
 .selector_Input{
-    
+    text-align: center;
 }
 
 @media (max-width: 575px){
-.selector_Input{
-    width: 80%;
-    // width:100px;
-}
+    .comparePlayers{
+        margin:0;
+        padding:0;
+    }
+    .selector_Input{
+        width: 80%;
+        // width:100px;
+    }
 }
