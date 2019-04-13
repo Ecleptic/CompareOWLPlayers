@@ -35,8 +35,12 @@ export function Selector(props) {
       }) => (
         <div>
           {/* <label {...getLabelProps()}>Enter a Player Name: </label> */}
-          <input {...getInputProps()} placeholder="Player" />
-          <ul {...getMenuProps()} className="selectorList">
+          <input
+            {...getInputProps()}
+            placeholder="Player"
+            className="selector_Input"
+          />
+          <ul {...getMenuProps()} className="selector_List">
             {isOpen && inputValue.length > 1
               ? console.log(items) ||
                 items

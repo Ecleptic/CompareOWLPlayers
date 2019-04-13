@@ -58,15 +58,13 @@ function App() {
           <h1>Loading...</h1>
         </div>
       ) : (
-        <div className="App">
-          <ComparePlayers
-            playersList={playersList}
-            setPlayer1Details={setPlayer1Details}
-            setPlayer2Details={setPlayer2Details}
-            player1={player1}
-            player2={player2}
-          />
-        </div>
+        <ComparePlayers
+          playersList={playersList}
+          setPlayer1Details={setPlayer1Details}
+          setPlayer2Details={setPlayer2Details}
+          player1={player1}
+          player2={player2}
+        />
       )}
     </>
   )
@@ -101,7 +99,7 @@ const ComparePlayers = ({
   console.log({ playersList })
   return (
     <div className="comparePlayers">
-      <div className="p1Info">
+      <div className="playerInfo">
         {playersList && (
           <Selector
             className="selector"
@@ -110,7 +108,7 @@ const ComparePlayers = ({
           />
         )}
       </div>
-      <div className="p2Info">
+      <div className="playerInfo">
         {playersList && (
           <Selector
             className="selector"

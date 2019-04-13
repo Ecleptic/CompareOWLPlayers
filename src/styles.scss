@@ -34,14 +34,23 @@ body{
     }
     img{
         max-height: 100%;
-        height: 5rem;
+        // height: 5rem;
         padding: 1rem;
+        @media (max-width: 575px){
+            height:2rem;
+        }
     }
     .nameInfo{
        
         display: flex;
         flex-direction: column;
     }
+}
+.playerInfo{
+  display: flex;
+    align-items: center;
+    justify-content: center;
+
 }
 .heroTable {
     grid-column-start: 1;
@@ -81,10 +90,24 @@ body{
 .heroTable_body-stats{
    
 }
-.selectorList{
+
+.selector_List{
     background-color: white;
     z-index: 2;
     list-style-type: none;
     padding: 0;
     margin: 0;
+   position: absolute;
+
+}
+
+.selector_Input{
+    
+}
+
+@media (max-width: 575px){
+.selector_Input{
+    width: 80%;
+    // width:100px;
+}
 }
